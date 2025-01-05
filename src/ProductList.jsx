@@ -254,7 +254,7 @@ const handlePlantsClick = (e) => {
 };
 
    const handleContinueShopping = (e) => {
-    e.preventDefault();
+   // e.preventDefault();
     setShowCart(false);
   };
   const handleAddToCart = (product) => {
@@ -274,6 +274,12 @@ const calculateTotalQuantity =()=>{
    // console.log(quantity,"<<gg")
     setTotalQuantity(quantity);
 };
+const handleRemoveFromCart = (product) => { 
+   dispatch(removeItem(product)); 
+    setAddedToCart((prevState) => {
+         const newState = { ...prevState };
+          delete newState[product.name]; 
+return newState; }); };
     return (
         <div>
              <div className="navbar" style={styleObj}>
@@ -315,7 +321,7 @@ const calculateTotalQuantity =()=>{
                 <div className='product-price'>{plant.description}</div>
                 <div className='product-price'>{plant.cost}</div>
                 {/*Similarly like the above plant.name show other details like description and cost*/}
-                <button  className="product-button" onClick={() => handleAddToCart(plant)} disabled={!!addedToCart[plant.name]}>{addedToCart[plant.name] ? 'Added' : 'Add to Cart'}</button>
+                <button  className={addedToCart[plant.name]?'product-button.added-to-cart':'product-button'} onClick={() => handleAddToCart(plant)} disabled={!!addedToCart[plant.name]}>{addedToCart[plant.name] ? 'Added' : 'Add to Cart'}</button>
             </div>
             ))}
         </div>
@@ -325,7 +331,7 @@ const calculateTotalQuantity =()=>{
 
         </div>
  ) :  (
-    <CartItem onContinueShopping={handleContinueShopping}/>
+    <CartItem onContinueShopping={handleContinueShopping} onRemoveFromCart={handleRemoveFromCart}/>
 )}
     </div>
     );
