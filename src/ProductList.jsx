@@ -315,7 +315,7 @@ const calculateTotalQuantity =()=>{
                 <div className='product-price'>{plant.description}</div>
                 <div className='product-price'>{plant.cost}</div>
                 {/*Similarly like the above plant.name show other details like description and cost*/}
-                <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                <button  className="product-button" onClick={() => handleAddToCart(plant)} disabled={!addedToCart[plant.name]}>{addedToCart[plant.name] ? 'Added' : 'Add to Cart'}</button>
             </div>
             ))}
         </div>
